@@ -1,23 +1,31 @@
-const depositBtn = document.getElementById("deposit-btn");
-depositBtn.addEventListener('click', ()=>{
-    var depositMoney = document.getElementById('depositAmount');
-    var depositValue = document.getElementById("deposit-field");
-    //deposit total
-    depositMoney.innerText = parseFloat(depositMoney.innerText) + parseFloat(depositValue.value);
-    //new balance
-    var totalBalance = document.getElementById("balance");
-    totalBalance.innerText = parseFloat(totalBalance.innerText) + parseFloat(depositMoney.innerText);
-    depositValue.value = '';
+function bankingCalculation(input){
+    var inputField = document.getElementById(input);
+    var inputValue = inputField.value;
+    var amount = parseFloat(inputValue);
+    inputField.value = '';
+    return amount;
+}
+
+document.getElementById("deposit-btn").addEventListener("click", ()=>{
+    let depositValue = bankingCalculation('deposit-field')
+    let deposit = document.getElementById('depositAmount');
+    if(depositValue >= 20){
+    deposit.innerText = parseFloat(deposit.innerText) + depositValue;
+    let total = document.getElementById('balance');
+    total.innerText = parseFloat(total.innerText) + depositValue;
+    }else{
+        alert("You can not deposit under $20");
+    }
 })
 
-
-const withdrawBtn = document.getElementById("withdraw-btn");
-withdrawBtn.addEventListener('click', ()=>{
-    var totalBalance = document.getElementById("balance");
-    var withdrawField = document.getElementById("withdraw-field");
-    totalBalance.innerText = parseFloat(totalBalance.innerText) - parseFloat(withdrawField.value);
-    var withdrawBalance = document.getElementById("withdraw-balance");
-    withdrawBalance.innerText =parseFloat(withdrawBalance.innerText) + parseFloat(withdrawField.value);
-    withdrawField.value = '';
-
+document.getElementById("withdraw-btn").addEventListener("click", ()=>{
+   let withdrawValue = bankingCalculation('withdraw-field')
+   let withdraw = document.getElementById('withdraw-balance');
+    if(withdrawValue >= 20){
+    withdraw.innerText = parseFloat(withdraw.innerText) + withdrawValue;
+    let totalWithdraw = document.getElementById('balance');
+    totalWithdraw.innerText = parseFloat(totalWithdraw.innerText) - withdrawValue;
+    }else{
+        alert("You can not withdraw under $20");
+    }
 })
